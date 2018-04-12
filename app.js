@@ -1,41 +1,33 @@
-(function(){
+(function () {
 
-'use strict';
-angular.module('DIApp',[])
-.controller('DIController',DIController)
-.filter('lovesFilter',PintuFilter);
+    'use strict';
+    angular.module('DIApp', [])
+        .controller('DIController', DIController)
+        .filter('lovesFilter', PintuFilter);
 
+    DIController.$inject = ['$scope', 'lovesFilter'];
 
-DIController.$inject=['$scope','lovesFilter'];
+    function DIController($scope, lovesFilter) {
 
-function DIController($scope,lovesFilter){
+        $scope.sayMessage = function () {
+            var name = 'Anand likes to eat chicken';
+            return name;
+        };
 
+        $scope.sayLoveMessage = function () {
+            var name = 'Anand likes to eat chicken';
+            name = lovesFilter(name);
+            return name;
+        };
 
-$scope.sayMessage = function()
- {
- var name='Anand likes to eat chicken';
- return name;
- };
+    }
+    
+    function PintuFilter() {
+        return function (input) {
+            input = input || "";
+            input = input.replace("likes", "loves");
+            return input;
+        };
+    }
 
-$scope.sayLoveMessage=function()
-{
-var name='Anand likes to eat chicken';
-name = lovesFilter(name);
-return name;
-};
-
-function PintuFilter()
-{
-return function(input)
-{
-input=input||"";
-input=input.replace("likes","loves");
-return input;
-};
-}
-
-
-
-
-
-}})();
+})();
